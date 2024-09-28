@@ -1,0 +1,280 @@
+html,
+body {
+      position: relative;
+      height: 100%;
+    }
+body {
+    background-color: #1E2033;
+    font-family: Poppins, cursive, serif;
+    color: white;
+    
+}
+
+/* Header styles */
+.header {
+    padding: 15px 30px; /* Tăng padding */
+    background-color: #1E2033; /* Thêm màu nền cho header */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Bóng đổ nhẹ */
+    position: relative;
+    z-index: 1000; /* Đảm bảo header nổi bật hơn */
+}
+
+.header .logo {
+    width: 80px; /* Điều chỉnh kích thước logo */
+    height: 50px;
+}
+
+.header .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Giữ tỷ lệ cho logo */
+}
+
+.header .header_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .header_top .header_right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.search_game {
+    display: flex;
+    align-items: center;
+    margin-right: 25px; /* Thay đổi khoảng cách */
+}
+
+.search_game input {
+    padding: 8px; /* Tăng padding */
+    border: 2px solid #ffcc00; /* Thêm viền cho ô tìm kiếm */
+    border-radius: 20px; /* Bo tròn lớn hơn */
+    margin-left: 8px; /* Tăng khoảng cách */
+    transition: border-color 0.3s; /* Hiệu ứng chuyển màu viền */
+}
+
+.search_game input:focus {
+    border-color: #ff4081; /* Đổi màu viền khi focus */
+    outline: none; /* Ẩn viền khi focus */
+}
+
+.favourites {
+    margin-right: 25px;
+    cursor: pointer; /* Con trỏ khi hover */
+    transition: transform 0.3s; /* Hiệu ứng chuyển động */
+}
+
+.favourites:hover {
+    transform: scale(1.1); /* Phóng to khi hover */
+}
+
+.profile button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar {
+    display: flex;
+}
+
+.nav-link {
+    color: #ffffff; /* Đổi màu chữ */
+    font-weight: 700;
+    font-size: 20px; /* Giảm kích thước chữ */
+    margin: 0 20px; /* Tăng khoảng cách giữa các liên kết */
+    transition: color 0.3s, transform 0.3s; /* Hiệu ứng chuyển màu và phóng to */
+}
+
+.nav-link:hover {
+    color: #ffcc00; /* Màu hover cho các liên kết */
+    transform: translateY(-3px); /* Di chuyển lên một chút khi hover */
+}
+
+
+/* swiper */
+.swiper {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* Thêm bo tròn */
+    overflow: hidden; /* Ẩn phần bên ngoài */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ */
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+.swiper-slide:hover {
+    transform: scale(1.05); /* Phóng to khi hover */
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px; /* Thêm bo tròn cho hình ảnh */
+}
+
+.autoplay-progress {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff; /* Đổi màu văn bản */
+}
+
+.autoplay-progress svg {
+    --progress: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    stroke-width: 4px;
+    stroke: #ff4081; /* Đổi màu đường viền */
+    fill: none;
+    stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+    stroke-dasharray: 125.6;
+    transform: rotate(-90deg);
+}
+
+
+
+/* Content area */
+.row {
+    margin-bottom: 15px; /* Tạo khoảng cách 15px giữa các hàng */
+}
+
+.thumbnail {
+    border: none; /* Loại bỏ đường viền thumbnail */
+    background-color: #2c3e50; /* Màu nền cho thumbnail */
+    border-radius: 10px; /* Bo tròn góc */
+    padding: 20px; /* Khoảng cách bên trong thumbnail */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Thêm bóng cho thumbnail */
+    transition: transform 0.3s, box-shadow 0.3s; /* Hiệu ứng chuyển động khi hover */
+}
+
+.thumbnail:hover {
+    transform: translateY(-5px); /* Nâng lên khi hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Bóng lớn hơn khi hover */
+}
+
+.img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng của cột */
+    height: auto; /* Giữ tỷ lệ hình ảnh */
+    border-radius: 10px; 
+    object-fit: cover; /* Cắt hình ảnh nếu cần */
+    transition: transform 0.3s ease-in-out;
+}
+
+.img:hover {
+    transform: scale(1.05); /* Phóng to hình ảnh khi hover */
+}
+
+.link-white {
+    color: #ffffff; /* Màu trắng */
+    text-decoration: none; /* Xóa gạch chân */
+}
+
+.link-white:hover {
+    text-decoration: underline; /* Gạch chân khi hover */
+    color: #ffcc00; /* Màu khi hover */
+}
+
+.caption {
+    margin-top: 15px; /* Thêm khoảng cách trên caption */
+    position: relative; /* Để căn chỉnh icon yêu thích */
+}
+
+.caption i {
+    position: absolute;
+    top: 15px; /* Điều chỉnh vị trí icon */
+    right: 15px; /* Điều chỉnh vị trí icon */
+}
+
+
+/* Top gamer*/
+.topgamer{
+    margin:20px;
+}
+.gamer-info {
+    margin-bottom: 10px; /* Điều chỉnh khoảng cách theo ý muốn */
+}
+.gamer-item {
+    display: flex;
+    background-color: #32344E;
+    border-radius: 10px;
+    padding: 10px;
+    align-items: center;
+    width: 450px; /* Điều chỉnh chiều rộng */
+    justify-content: space-between;
+}
+
+
+
+.gamer-info {
+    flex-direction: column;
+    flex: 1;
+    display: inline-block; /* Giữ các phần tử trong td theo kích thước nội dung */
+    padding: 10px; /* Khoảng cách bên trong */
+    background-color: #3B3D4E; /* Màu nền của ô */
+    border-radius: 5px; /* Bo góc */
+    vertical-align: middle; /* Căn giữa theo chiều dọc */
+}
+
+.gamer-info .gamer-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.gamer-info .gamer-score {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.gamer-info .gamer-game {
+    color: white;
+}
+
+.gamer-item img.game-thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 0px;
+    object-fit: cover; /* Đảm bảo hình ảnh giữ tỉ lệ */
+}
+.gamer-item img.badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover; /* Đảm bảo hình ảnh giữ tỉ lệ */
+}
+/* Responsive styles */
+@media (max-width: 768px) {
+    .header_top {
+        flex-direction: column;
+        align-items: flex-start; /* Căn trái cho các phần tử trong chế độ di động */
+    }
+
+    .header .header_top .header_right {
+        margin-top: 10px; /* Thêm khoảng cách cho phần header_right trong chế độ di động */
+    }
+}   

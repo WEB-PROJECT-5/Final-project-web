@@ -1,0 +1,493 @@
+html,
+body{
+  position: relative;
+  height: 100%;
+}
+body {
+  background-color: #3b2f2f;
+  /* Nền đen nâu */
+  color: white;
+  /* Đổi màu chữ sang trắng để dễ đọc hơn trên nền tối */
+  font-family: Arial, sans-serif;
+  /* Chọn font dễ đọc */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header styles */
+.header {
+  position: relative;
+  z-index: 1000;
+  /* Đảm bảo header nổi bật hơn */
+}
+
+.header .logo {
+  width: 80px;
+  /* Điều chỉnh kích thước logo */
+  height: 50px;
+}
+
+.header .logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Giữ tỷ lệ cho logo */
+}
+
+.header .header_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 25px;
+}
+
+.header .header_top .header_right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header .header_top .header_right .search_game {
+  display: flex;
+  align-items: center;
+  margin-right: 25px;
+  /* Thay đổi khoảng cách */
+  padding: 8px 8px;
+  background-color: #3B3D4E;
+  border-radius: 15px;
+  color: #ffffff
+}
+
+.header .header_top .header_right .search_game span {
+  padding-left: 5px;
+}
+
+.header .header_top .header_right .search_game input[type='text'] {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  margin-left: 5px;
+  color: #fff
+}
+
+.header .header_top .header_right .favourites {
+  padding: 6px 10px;
+  border-radius: 50px 50px;
+  border: 1px solid white;
+}
+
+.header .header_top .header_right .favourites span {
+  color: #ffffff;
+}
+
+.header .header_top .header_right .profile {
+  margin-left: 10px;
+}
+
+.navbar {
+  display: flex;
+}
+
+.nav-link {
+  color: #ffffff;
+  /* Đổi màu chữ */
+  font-weight: 700;
+  font-size: 20px;
+  /* Giảm kích thước chữ */
+  margin: 0 20px;
+  /* Tăng khoảng cách giữa các liên kết */
+  transition: color 0.3s, transform 0.3s;
+  /* Hiệu ứng chuyển màu và phóng to */
+}
+
+.nav-link:hover {
+  color: #ffcc00;
+  /* Màu hover cho các liên kết */
+  transform: translateY(-3px);
+  /* Di chuyển lên một chút khi hover */
+}
+
+
+/* BANNER */
+/* Row Styling */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  margin: 0px auto;
+  max-width: 1200px;
+}
+
+.thumbnail {
+  position: relative;
+}
+
+/* Text Column Styling */
+.col-sm-4,
+.col-md-6 {
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+pre {
+  font-size: 1.2em;
+  color: #ffffff;
+  background: none;
+  border: none;
+  white-space: normal;
+}
+
+/* Image Column Styling */
+.col-sm-8,
+.col-md-6 {
+  text-align: center;
+}
+
+/* GIỚI THIỆU GAME HAY */
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Bóng cho slide */
+  transition: transform 0.4s ease; /* Hiệu ứng chuyển đổi */
+}
+
+.swiper-slide:hover {
+  transform: scale(1.05); /* Phóng to khi hover */
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}
+/* Tùy chỉnh phân trang */
+.swiper-pagination-bullet {
+  background: #fff;
+  width: 12px;
+  height: 12px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ff5e62; /* Màu nổi bật khi active */
+  opacity: 1;
+}
+
+.swiper-pagination-bullet:hover {
+  opacity: 1; /* Hiệu ứng hover cho phân trang */
+}
+
+/* GIỚI THIỆU CÁC DANH MỤC */
+/* Phần nền chứa ảnh */
+.background-section {
+  background-image: url('../Image/Trang/UEH_N.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 100px 0;
+  text-align: center; /* Canh giữa nội dung */
+  color: #fff; /* Màu chữ */
+}
+
+/* Tiêu đề và mô tả chỉ trong background-section */
+.background-section h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Bóng chữ */
+}
+
+.background-section p {
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+/* Khối chứa các biểu tượng dịch vụ */
+.service-icons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 3 cột cho hàng trên */
+  gap: 5px;
+  justify-items: center; /* Canh giữa các biểu tượng */
+  padding-left: 500px; /* Thêm padding bên trái */
+  padding-right: 500px; /* Thêm padding bên phải */
+  padding-top: 20px; /* Thêm padding bên phải */
+}
+
+/* Đặt vị trí các biểu tượng */
+.service:nth-child(1){
+  grid-column: 1; /* Ở cột 1 */
+}
+
+.service:nth-child(2){
+  grid-column: 3;/* Ở cột 3 */
+}
+
+.service:nth-child(3){
+  grid-column: 5; /* Ở cột 5 */
+} 
+
+.service:nth-child(4) {
+  grid-column: 2; /* Ở cột 2 */
+}
+
+.service:nth-child(5) {
+  grid-column: 4; /* Ở cột 4 */
+}
+
+/* Phong cách cho từng dịch vụ */
+.service {
+  text-align: center;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.service i {
+  font-size: 36px;  
+  color: #ff7f00; /* Màu cam cho biểu tượng */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 50%; /* Tạo hình tròn */
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.service p {
+  font-size: 16px;
+}
+
+/* Hiệu ứng hover cho dịch vụ */
+.service:hover {
+  transform: translateY(-10px);
+}
+
+.service:hover i {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/*GIỚI THIỆU TÁC GIẢ*/
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* Tùy chọn, để căn giữa */
+  gap: 20px;
+  /* Tùy chọn, để tạo khoảng cách giữa các ảnh */
+  margin: 0 auto;
+  /* Căn giữa container */
+  padding: 20px;
+
+}
+
+/* Tạo hiệu ứng cho hình */
+.img-box {
+  background: var(--img) center;
+  background-size: cover;
+  flex-basis: 300px;
+  height: 600px;
+  /* Thêm chiều cao để các ảnh có kích thước */
+  position: relative;
+  border-radius: 15px;
+  /* Bo tròn các góc */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /* Đổ bóng nhẹ */
+  transition: 400ms all ease;
+  filter: grayscale(100%) opacity(35%);
+  z-index: 2;
+  /* Đảm bảo hình ảnh nằm trên tên */
+}
+
+
+
+/* Tên tác giả ban đầu ẩn đi */
+.author-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #3b2f2f;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  transform: translateY(100%);
+  /* Ban đầu ẩn đi */
+  transition: 300ms ease-in-out;
+  z-index: 1;
+  /* Đặt chỉ số z-index thấp hơn img-box để không hiển thị */
+}
+
+/* Hiệu ứng hover */
+.img-box:hover {
+  flex-basis: 400px;
+  filter: grayscale(0%) opacity(100%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  /* Tăng cường đổ bóng khi hover */
+  transform: scale(1.05);
+  /* Phóng to nhẹ khi hover */
+}
+
+/* Khi hover vào, tên tác giả sẽ xuất hiện từ dưới và ở trên cùng */
+.img-box:hover .author-name {
+  transform: translateY(0);
+  /* Trượt lên từ dưới */
+  opacity: 1;
+  /* Hiển thị tên */
+  background: rgba(255, 251, 251, 0.4);
+  /* Tăng độ tối nền khi hover */
+  z-index: 3;
+  /* Đảm bảo tên tác giả hiển thị trên hình ảnh khi hover */
+}
+
+/* Đảm bảo thích ứng trên các thiết bị di động */
+@media (max-width: 768px) {
+  .img-box {
+    width: 100%;
+    height: 250px;
+    /* Đặt chiều cao cố định để đảm bảo hình ảnh luôn hiển thị */
+    background-size: cover;
+    /* Đảm bảo ảnh luôn che phủ toàn bộ vùng */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .img-box {
+    width: 45%;
+    height: 350px;
+    /* Đặt chiều cao cố định cho các màn hình trung bình */
+    background-size: cover;
+  }
+}
+
+/* Tạo hiệu ứng cho Bé Green*/
+.pulse {
+  animation-timing-function: linear;
+  animation-duration: 2s
+}
+
+.pulse {
+  animation-name: pulse;
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(.9);
+    opacity: .9
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1
+  }
+}
+
+@-webkit-keyframes pulse {
+
+  0%,
+  100% {
+    -webkit-transform: scale(.95);
+    opacity: .9
+  }
+
+  50% {
+    -webkit-transform: scale(1);
+    opacity: 1
+  }
+}
+/* footer */
+.footer{
+  margin-top: 131px;
+}
+
+.footer .footer-logo .footer-text{
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 20px;
+}
+
+.footer .footer-item {
+  
+}
+
+.footer .footer-item h4{
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.footer .footer-item .footer-item-list{
+  margin-top: 15px;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  justify-content: end;
+  gap:12px;
+  margin-bottom: 0;
+}
+
+.footer .footer-item .footer-item-list li{
+  font-size: 14px;
+}
+
+
+.footer .footer-item .footer-contact{
+  margin-top: 15px;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+ justify-content: flex-start;
+  align-items: start;
+  gap:12px;
+  margin-bottom: 0;
+  width: 90%;
+}
+
+.footer .footer-item .footer-contact li{
+  font-size: 14px;
+}
+
+.footer .footer-item .footer-social{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  padding-left: 0;
+  
+  /* gap:12px; */
+}
+
+.copyright{
+  text-align: center;
+  margin-top:30px;
+  margin-bottom:30px;
+  padding-bottom: 30px;
+}
+
+.copyright .copyright-text{
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 0;
+}

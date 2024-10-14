@@ -1,0 +1,519 @@
+html,
+body {
+      position: relative;
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+body {
+    background-color: #1e272e;
+    font-family: Poppins, cursive, serif;
+    color: white;
+    
+}
+
+/* Header styles */
+.header {
+    position: relative;
+    z-index: 1000; /* Đảm bảo header nổi bật hơn */
+}
+
+
+
+.header .header_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    position: fixed; /* Đặt vị trí cố định */
+    background-color: #1e272e;
+    position: fixed; /* Đặt vị trí cố định */
+    top: 0; /* Đặt ở phía trên cùng */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* Đảm bảo header nằm trên các phần tử khác */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ để tạo chiều sâu */
+    transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động */
+    
+}
+
+
+.header .header_top .scrolled {
+    background-color: rgba(255, 255, 255, 0.9); /* Màu nền khi cuộn */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Bóng lớn hơn khi cuộn */
+}
+.header .header_top .header_right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.header .header_top .header_right  .search_game {
+    display: flex;
+    align-items: center;
+    margin-right: 25px; /* Thay đổi khoảng cách */
+    padding: 8px 8px;
+    background-color: #3B3D4E;
+    border-radius: 15px;
+    color:#ffffff
+
+}
+
+.header .header_top .header_right  .search_game span{
+    padding-left: 5px;
+}
+.header .header_top .header_right  .search_game input[type='text']{
+    border: none;
+    background-color: transparent;
+    outline: none;
+    margin-left: 5px;
+    color:#fff
+    
+}
+.header .logo {
+    width: 80px; /* Điều chỉnh kích thước logo */
+    height: 50px;
+    
+}
+
+.header .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Giữ tỷ lệ cho logo */
+}
+.header .header_top .header_right .favourites{
+    padding: 6px 10px;
+    border-radius: 50px 50px;
+    border: 1px solid white;
+}
+
+.header .header_top .header_right .favourites span{
+    color: #ffffff;
+}
+
+.header .header_top .header_right .profile{
+    margin-left: 10px;
+}
+
+.navbar {
+    display: flex;
+}
+
+.nav-link {
+    color: #ffffff; /* Đổi màu chữ */
+    font-weight: 700;
+    font-size: 20px; /* Giảm kích thước chữ */
+    margin: 0 20px; /* Tăng khoảng cách giữa các liên kết */
+    transition: color 0.3s, transform 0.3s; /* Hiệu ứng chuyển màu và phóng to */
+}
+
+.nav-link:hover {
+    color: #ffcc00; /* Màu hover cho các liên kết */
+    transform: translateY(-3px); /* Di chuyển lên một chút khi hover */
+}
+
+
+.swiper {
+    height: 338px;
+    overflow: hidden; /* Ẩn phần bên ngoài */
+   
+}
+
+.swiper-slide {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s; /* Hiệu ứng chuyển tiếp */
+}
+
+
+
+.swiper-slide  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px; /* Thêm bo tròn cho hình ảnh */
+}
+
+.autoplay-progress {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #fff; /* Đổi màu văn bản */
+}
+
+.autoplay-progress svg {
+    --progress: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    stroke-width: 4px;
+    stroke: #ff4081; /* Đổi màu đường viền */
+    fill: none;
+    stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+    stroke-dasharray: 125.6;
+    transform: rotate(-90deg);
+}
+
+
+.banner{
+    position: relative;
+    z-index: 100;
+    margin-top: 98px;
+}
+
+.banner .play__now{
+    position: absolute;
+    top: 25%;
+    left: 15%;
+    z-index: 99;
+}
+ 
+.banner .play__now .play__now-link {
+    background-color: #015F69;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 12px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.banner .play__now .play__now-link:hover{
+    background-color: #1e272e;
+    transition: .5s ease-out all;
+
+}
+
+.banner .collection{
+    margin-top: 10px;
+    position: relative;
+    top: -100px;
+
+}
+
+.banner .collection .collection__slideshow{
+
+}
+
+.banner .collection .item{
+    background-color: #ADAAA6;
+    width: 219px;
+    height: 185px;
+    border-radius: 15px;
+
+}
+
+.banner .collection .item .item__img{
+    height: 135px;
+}
+
+.banner .collection .item__detail{
+    margin:  3px 12px;
+}
+.banner .collection .item .item__img img{
+    height: 100%;
+}
+
+.banner .collection .item  .item__detail .item__text {
+    font-size: 14px;
+    padding: 0;
+}
+
+.banner .collection .item  .item__detail .item__icon{
+    padding:10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-sidebar{
+    margin-top: 24px;
+}
+
+.box-sidebar .bestgame{
+
+}
+
+.box-sidebar .bestgame .bestgame__title{
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.box-sidebar .bestgame .box-game{
+    border: 1px solid #FFFFFF;
+    border-radius: 20px;
+    padding: 14px  20px;
+}
+
+
+
+.box-sidebar .bestgame .box-game .item{
+    background-color: #ADAAA6;
+    width: 219px;
+    height: 185px;
+    border-radius: 15px;
+
+}
+
+.box-sidebar .bestgame .box-game .item .item__img{
+    height: 135px;
+}
+
+.box-sidebar .bestgame .box-game .item__detail{
+    margin:  3px 12px;
+}
+.box-sidebar .bestgame .box-game .item .item__img img{
+    height: 100%;
+}
+
+.box-sidebar .bestgame .box-game .item  .item__detail .item__text {
+    font-size: 14px;
+    padding: 0;
+}
+
+.box-sidebar .bestgame .box-game .item  .item__detail .item__icon{
+    padding:10px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.box-sidebar .bestgame .box-game .box-link{
+    padding-top: 14px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: right;
+    text-decoration: none;
+    display: flex;
+    justify-content: end;
+}
+
+.box-sidebar .bestgame .box-game .box-link:hover{
+    color: #1abc9c;
+    transition: .3s ease-in;
+}
+
+.box-sidebar .sidebar{
+    
+}
+
+.box-sidebar .sidebar .highscore{
+
+}
+
+.box-sidebar .sidebar .highscore .highscore__title{
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.box-sidebar .sidebar .highscore .gamer{
+
+}
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list{
+    list-style: none;
+    padding-left: 0;
+
+}
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-item{
+    border: 1px solid #3333;
+    border-radius: 8px;
+    background-color: #3B3D4E;
+    padding: 8px 14px;
+    display: flex;
+    justify-content: space-between;
+    object-fit: cover;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-infor{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  overflow: hidden;
+  margin-left: 14px;
+}
+
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-infor .thumbnail-wrranty{
+    margin-top: 12px;
+    width: 65px;
+    height: 65px;
+}
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-infor .thumbnail-wrranty img{
+    width: 100%;
+    height: 100%;
+}
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-infor .gamer-username{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-infor .gamer-score{
+    font-size: 18px;
+    color: #FE0000;
+}
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-infor .gamer-game{
+    margin:0;
+    font-weight: bold;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 20px;
+
+}
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-item .gamer-thumbnail{
+    width: 173px;
+    height: 168px;
+}
+
+.box-sidebar .sidebar .highscore .gamer .gamer-list .gamer-item .gamer-thumbnail img{
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar{
+     position: sticky;
+    top: 0; /* Đặt vị trí dính ở trên cùng */
+    height: 100vh; /* Chiều cao sidebar bằng chiều cao của viewport */
+    overflow-y: auto; /* Cho phép cuộn nội dung nếu cần */
+    
+}
+
+/* jump to */
+
+.box-sidebar .main .jump{
+    display: flex;
+    align-items: start;
+    margin-top: 40px;
+
+}
+
+.box-sidebar .main .jump .jump-title{
+    font-weight: 700;
+    font-size: 22px;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+}
+
+.box-sidebar .main .jump .jump-list{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.box-sidebar .main .jump .jump-list .jump-item{
+    display: inline;
+    padding: 4px 12px;
+    
+    border: 1px solid #3333;
+    border-radius: 8px;
+    background-color: #3B3D4E;
+}
+
+.box-sidebar .main .jump .jump-list .jump-item .jump-link{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+   
+/* footer */
+
+.footer{
+    margin-top: 131px;
+}
+
+.footer .footer-logo .footer-text{
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 20px;
+}
+
+.footer .footer-item {
+    
+}
+
+.footer .footer-item h4{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.footer .footer-item .footer-item-list{
+    margin-top: 15px;
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    justify-content: end;
+    gap:12px;
+    margin-bottom: 0;
+}
+
+.footer .footer-item .footer-item-list li{
+    font-size: 14px;
+}
+
+
+.footer .footer-item .footer-contact{
+    margin-top: 15px;
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+   justify-content: flex-start;
+    align-items: start;
+    gap:12px;
+    margin-bottom: 0;
+    width: 90%;
+}
+
+.footer .footer-item .footer-contact li{
+    font-size: 14px;
+}
+
+.footer .footer-item .footer-social{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    padding-left: 0;
+    
+    /* gap:12px; */
+}
+
+ .copyright{
+    text-align: center;
+    margin-top:30px;
+    margin-bottom:30px;
+    padding-bottom: 30px;
+}
+
+.copyright .copyright-text{
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+
+

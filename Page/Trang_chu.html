@@ -1,164 +1,1162 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body {
-            background-color: #2c1c0d;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .section {
-            margin-bottom: 30px;
-            padding: 15px;
-            border: 1px solid #666;
-            border-radius: 8px;
-            background-color: #3d2a1b;
-        }
-        .section h3 {
-            font-weight: bold;
-        }
-        .game-item {
-            border: 1px solid #444;
-            border-radius: 8px;
-            margin: 10px 0;
-            background-color: #fff;
-            text-align: center;
-            padding: 10px;
-        }
-        .game-item img {
-            width: 100%;
-            border-radius: 8px;
-        }
-        .game-item p {
-            color: #000;
-            margin-top: 5px;
-        }
-        .btn-custom {
-            background-color: #f39c12;
-            color: white;
-            border-radius: 20px;
-            padding: 5px 15px;
-            margin: 10px 0;
-        }
-        .game-item .favorite {
-            color: #f39c12;
-            margin-top: 5px;
-        }
-        .navbar {
-            background-color: #000;
-            border: none;
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-        .navbar-brand {
-            color: #fff !important;
-        }
-        .nav>li>a {
-            color: #fff !important;
-        }
-        .search-bar {
-            padding: 5px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 300px;
-            border: 1px solid #ddd;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Link font-Poppins CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <!-- Link font-awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../CSS/trangchu.css">
     <link rel="icon" href="../Image/Trang/logo_mini2.png" type="image/x-icon">
     <title>UEH Discovery</title>
 </head>
+
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
+    <!-- Phần đầu -->
+    <header class="header">
+        <!-- Thanh điều hướng (chia làm 3 phần sau)-->
+        <div class="row header_top scrolled">
+            <!-- Logo Chiếm 3/12-->
+            <div class="logo col-3 ">
+                <img src="../Image/Trang/LOGO_MINI.png" alt="Logo">
+            </div>
+            <!-- Các danh mục chiếm 4/12 cột -->
+            <div class="navbar col-4">
+                <nav class="navbar navbar-expand-lg ">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Introduce</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <a class=" nav-link btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Games
+                                      </a>
+                                    <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="#">Action</a></li>
+                                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                  </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="header_right col-5">
+                <div class="search_game">
+                    <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" placeholder=" Search for games">
+                </div>
+                <div class="favourites">
+                    <span><i class="fa-solid fa-heart" style="color: #FFFFFF;"></i></span>
+                </div>
+                <div class="profile">
+                    <div class="dropdown">
+                        <a class=" " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../Image/Trang/Profile.png" style="width: 40px;" alt="" />
+
+                        </a>
+
+                        <ul class="dropdown-menu" style="margin-top: 30px;">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Swiper -->
+        <section>
+            <div class="banner ">
+                <div class="swiper mySwiper container-fluid" id="swiper1">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="../Image/Trang/Swiper/Slide1.png">
+                        </div>
+                        <div class="swiper-slide"><img src="../Image/Trang/Swiper/Slide1.png"></div>
+                        <div class="swiper-slide"><img src="../Image/Trang/Swiper/Slide1.png"></div>
+                        <div class="swiper-slide"><img src="../Image/Trang/Swiper/Slide1.png"></div>
+                        <div class="swiper-slide"><img src="../Image/Trang/Swiper/Slide1.png"></div>
+                    </div>
+
+                    <!-- <div class="swiper-pagination"></div> -->
+                    <!-- <div class="autoplay-progress">
+                        <svg viewBox="0 0 48 48">
+                            <circle cx="24" cy="24" r="20"></circle>
+                        </svg>
+                        <span></span>
+                    </div> -->
+                </div>
+                <div class="play__now">
+                    <p class="">PLAY NOW</p>
+                </div>
+                <div class="collection">
+                    <div class="collection__slideshow">
+                        <div #swiperRef="" class="swiper2 mySwiper" id="swiper2" style=" overflow: hidden;">
+                            <div class="swiper-wrapper" style="margin-left: 130px;">
+
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/Screenshot 2024-09-23 111111.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+            margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+            margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/Screenshot 2024-09-23 111111.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+            margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+            margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+           margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+           margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/Screenshot 2024-09-23 111111.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+            margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+            margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+           margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+           margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/Screenshot 2024-09-23 111111.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+            margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+            margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+            margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+            margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/Screenshot 2024-09-23 111111.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+            margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+            margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/Screenshot 2024-09-23 111111.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+            margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+            margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            </div>
+            </div>
+
+    </header>
+
+    <!-- Các game hiện có -->
+    <!-- Content area-->
+    <section class="container-xl">
+        <div class="section box-sidebar">
+            <div class=" row gx-5">
+                <div class="main col-7">
+
+                    <!-- top  games -->
+                    <div class="bestgame ">
+                        <p class="bestgame__title">Top games</p>
+                        <div class="box-game">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="" class="box-link">See more</a>
+                        </div>
+                    </div>
+                    <!-- Recently player -->
+                    <div class="bestgame ">
+                        <p class="bestgame__title mt-4">Recently player</p>
+                        <div class="box-game">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="" class="box-link">See more</a>
+                        </div>
+                    </div>
+                    <!-- Bộ chọn -->
+                    <div class="jump row">
+                        <p class="jump-title col-3 ">Jump to: </p>
+                        <ul class="jump-list col-9 ">
+                            <li class="jump-item"><a href="" class="jump-link">Top games</a></li>
+                            <li class="jump-item"><a href="" class="jump-link">Recently player</a></li>
+                            <li class="jump-item"><a href="" class="jump-link">UEH Review</a></li>
+                            <li class="jump-item"><a href="" class="jump-link">UEH Green</a></li>
+                            <li class="jump-item"><a href="" class="jump-link">EduGames</a></li>
+                        </ul>
+                    </div>
+                    <!-- UEH Review -->
+                    <div class="bestgame ">
+                        <p class="bestgame__title">UEH Review</p>
+                        <div class="box-game">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="" class="box-link">See more</a>
+                        </div>
+                    </div>
+                    <!-- UEH Green -->
+                    <div class="bestgame ">
+                        <p class="bestgame__title">UEH Green</p>
+                        <div class="box-game">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="" class="box-link">See more</a>
+                        </div>
+                    </div>
+                    <!-- EduGames -->
+                    <div class="bestgame ">
+                        <p class="bestgame__title">EduGames</p>
+                        <div class="box-game">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="item ">
+                                        <div class="item__img">
+                                            <img src="../Image/15.png" alt="">
+                                        </div>
+                                        <div class="item__detail row">
+                                            <div class="item__text col-6">
+                                                <p class="fw-bold fs-6" style="
+                margin-bottom: 0;">UEH maze</p>
+                                                <p class="fw-lighter" style="
+                margin-bottom: 0;">UEH review</p>
+                                            </div>
+                                            <div class="item__icon col-6">
+                                                <span><i class="fa-solid fa-play fa-2xl"
+                                                        style="color: #FFFFFF;margin-right: 8px;"></i></span>
+                                                <span><i class="fa-regular fa-heart fa-2xl"
+                                                        style="color: #ffffff;"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="" class="box-link">See more</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Top người chơi-->
+                <div class="sidebar sticky col-5">
+                    <div class="highscore">
+                        <p class="highscore__title">Top Gamer </h4>
+                        <div class="gamer">
+                            <ul class="gamer-list">
+                                <li class="gamer-item">
+                                    <div class="gamer-infor">
+                                        <p class="thumbnail-wrranty m-0 "><img src="../Image/Warranty.png"
+                                                alt=""></span>
+                                        <p class="gamer-username m-0">Thien Huong</p>
+                                        <span class="gamer-score">Điểm: <b>0411</b></span>
+                                        <a href="" class="gamer-game">UEH Maze </a>
+                                    </div>
+
+                                    <div class="gamer-thumbnail"> <a href="" class=""><img src="../Image/8.png"
+                                                alt=""></a></div>
+                                </li>
+                                <li class="gamer-item">
+                                    <div class="gamer-infor">
+                                        <p class="thumbnail-wrranty m-0 "><img src="../Image/Warranty.png"
+                                                alt=""></span>
+                                        <p class="gamer-username m-0">Thien Huong</p>
+                                        <span class="gamer-score">Điểm: <b>0411</b></span>
+                                        <a href="" class="gamer-game">UEH Maze </a>
+                                    </div>
+
+                                    <div class="gamer-thumbnail"> <a href="" class=""><img src="../Image/8.png"
+                                                alt=""></a></div>
+                                </li>
+                                <li class="gamer-item">
+                                    <div class="gamer-infor">
+                                        <p class="thumbnail-wrranty m-0 "><img src="../Image/Warranty.png"
+                                                alt=""></span>
+                                        <p class="gamer-username m-0">Thien Huong</p>
+                                        <span class="gamer-score">Điểm: <b>0411</b></span>
+                                        <a href="" class="gamer-game">UEH Maze </a>
+                                    </div>
+
+                                    <div class="gamer-thumbnail"> <a href="" class=""><img src="../Image/8.png"
+                                                alt=""></a></div>
+                                </li>
+                                <li class="gamer-item">
+                                    <div class="gamer-infor">
+                                        <p class="thumbnail-wrranty m-0 "><img src="../Image/Warranty.png"
+                                                alt=""></span>
+                                        <p class="gamer-username m-0">Thien Huong</p>
+                                        <span class="gamer-score">Điểm: <b>0411</b></span>
+                                        <a href="" class="gamer-game">UEH Maze </a>
+                                    </div>
+
+                                    <div class="gamer-thumbnail"> <a href="" class=""><img src="../Image/8.png"
+                                                alt=""></a></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+    </section>
+
+    <!--Footer-->
+    <footer class="container-xl">
+        <div class="footer ">
+            <div class="footer-top row">
+                <div class="footer-logo col-4">
                     <img src="../Image/Trang/LOGO_MINI3.png" alt="Logo">
-                </a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="#">Introduce</a></li>
-                <li><a href="#">Games <span class="caret"></span></a></li>
-            </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control search-bar" placeholder="Search for games">
-                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
-
-    <!-- Main container -->
-    <div class="container">
-        <!-- Top games section -->
-        <div class="section">
-            <h3>Top Games</h3>
-            <div class="row">
-                <div class="col-xs-6 col-sm-3">
-                    <div class="game-item">
-                        <img src="https://via.placeholder.com/150" alt="Game Image">
-                        <p>UEH Maze</p>
-                        <button class="btn btn-custom">Play Now</button>
-                        <div class="favorite"><i class="fa fa-heart"></i></div>
-                    </div>
+                    <p class="footer-text">Empowering education, promoting sustainability, and exploring the future—one
+                        game at a time!</p>
                 </div>
-                <!-- Repeat the above div.col-xs-6.col-sm-3 block for other games in the row -->
-            </div>
-        </div>
-
-        <!-- Top Gamer Section -->
-        <div class="section">
-            <h3>Top Gamer</h3>
-            <div class="row">
-                <div class="col-xs-6 col-sm-3">
-                    <div class="game-item">
-                        <img src="https://via.placeholder.com/150" alt="Gamer Avatar">
-                        <p>Thiên Hương</p>
-                        <span>Điểm: 12.300</span>
-                    </div>
+                <div class="footer-item col-2">
+                    <h4>About us</h4>
+                    <ul class="footer-item-list">
+                        <li>Introduce</li>
+                        <li>Terms</li>
+                        <li>Privacy</li>
+                        <li>Contact us</li>
+                    </ul>
                 </div>
-                <!-- Repeat the above div.col-xs-6.col-sm-3 block for other gamers in the row -->
-            </div>
-        </div>
-
-        <!-- Recently Player Section -->
-        <div class="section">
-            <h3>Recently Player</h3>
-            <div class="row">
-                <div class="col-xs-6 col-sm-3">
-                    <div class="game-item">
-                        <img src="https://via.placeholder.com/150" alt="Game Image">
-                        <p>UEH Maze</p>
-                        <button class="btn btn-custom">Play Now</button>
-                        <div class="favorite"><i class="fa fa-heart"></i></div>
-                    </div>
+                <div class="footer-item col-3">
+                    <h4>Contact us</h4>
+                    <ul class="footer-contact ">
+                        <li>Have questions or feedback? Reach out to us anytime!</li>
+                        <li>+84 932 092 302</li>
+                    </ul>
                 </div>
-                <!-- Repeat the above div.col-xs-6.col-sm-3 block for other games in the row -->
+                <div class="footer-item d-flex justify-content-between col-3">
+                    <ul class="footer-social gap-4">
+                        <li><span><i class="fa-brands fa-facebook fa-2xl"></i></span></li>
+                        <li><span><i class="fa-brands fa-instagram  fa-2xl"></i></span></li>
+                        <li><span><i class="fa-brands fa-twitter fa-2xl"></i></span></li>
+                        <li><span><i class="fa-brands fa-linkedin fa-2xl"></i></span></li>
+                    </ul>
+                </div>
             </div>
         </div>
-
-        <!-- Jump to buttons -->
-        <div class="text-center">
-            <button class="btn btn-custom">Top games</button>
-            <button class="btn btn-custom">Recently player</button>
-            <button class="btn btn-custom">UEH Review</button>
-            <button class="btn btn-custom">UEH Green</button>
-            <button class="btn btn-custom">EduGames</button>
-        </div>
-
-        <!-- Footer -->
-        <footer class="text-center" style="margin-top: 30px;">
-            <p>Home - Introduce - Facebook - Give Feedback</p>
-        </footer>
+    </footer>
+    <hr>
+    <div class="copyright">
+        <p class="copyright-text">Copyright ® 2024 WEB-PROJECT-5</p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Swiper-->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../JS/trangchu.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"
+        integrity="sha512-aNMyYYxdIxIaot0Y1/PLuEu3eipGCmsEUBrUq+7aVyPGMFH8z0eTP0tkqAvv34fzN6z+201d3T8HPb1svWSKHQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="anime.min.js"></script>
+    <script>
+        anime({
+            targets: '.square',
+            translateX: 250,
+            rotateZ: 360,
+            duration: 3000,
+            loop: true
+        });
+        var swiper1 = new Swiper("#swiper1", {
+            autoplay: {
+                delay: 1500,
+                disableOnInteraction: false,
+            },
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        });
+        var swiper2 = new Swiper("#swiper2", {
+            slidesPerView: 7,
+            //   centeredSlides: true,
+            spaceBetween: 30,
+
+
+        });
+    </script>
+    <script>
+
+    </script>
 </body>
+
 </html>

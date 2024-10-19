@@ -1,0 +1,8 @@
+Tải unity từ đường dẫn sau: https://unity.com/download
+Sau đó install Unity vô máy, và chờ cài đặt các package unity yêu cầu
+Ở giao diện của Unity Hub, chọn Add -> Add project from disk -> Chọn Game_Ngoc từ branch ngoc (Nhớ clone repo về trước)
+Xong nhấn vô có nút play ở trên cùng là preview được game
+- Hiện tại game chỉ mới có map và di chuyển nhân vật
+- Nhặt item vẫn chưa được vì chưa fix được lỗi 
+- Vô tham quan map thì được
+--CẬP NHẬT THÊM--

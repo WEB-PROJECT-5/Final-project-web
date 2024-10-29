@@ -1,0 +1,138 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e8f5e9;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+#game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#game-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #fafafa;
+}
+
+.wall {
+    background-color: #546e7a;
+}
+
+.player {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    transition: transform 0.2s;
+}
+
+.player.face-right {
+    transform: scaleX(1);
+}
+
+.player.face-left {
+    transform: scaleX(-1);
+}
+
+.trash {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+}
+
+.bin-organic {
+    background-color: #4caf50;
+}
+
+.bin-plastic {
+    background-color: #2196f3;
+}
+
+.bin-paper {
+    background-color: #ffc107;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #388e3c;
+}
+
+.game-status {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Sprite Animations */
+@keyframes walkRight {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -192px 0;
+    }
+}
+
+@keyframes walkLeft {
+    from {
+        background-position: 0 -48px;
+    }
+
+    to {
+        background-position: -192px -48px;
+    }
+}
+
+.player-walking {
+    animation: walkRight 0.8s steps(4) infinite;
+}
+
+.player-walking.face-left {
+    animation: walkLeft 0.8s steps(4) infinite;
+}

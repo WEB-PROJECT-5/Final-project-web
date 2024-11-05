@@ -5,19 +5,55 @@
     <meta charset="UTF-8">
     <title>Recycling Sokoban</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .cell {
+            transition: all 0.2s ease;
+        }
+        .player, .trash {
+            transition: transform 0.2s ease;
+        }
+        .moving {
+            animation: move 0.2s ease;
+        }
+        @keyframes move {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div id="game-info">
+        <div>Player: <span id="playerName">Guest</span></div>
         <div>Level: <span id="level">1</span></div>
         <div>Score: <span id="score">0</span></div>
         <div>Time: <span id="time">00:00</span></div>
     </div>
     <div id="game-container"></div>
     <div class="controls">
-        <button onclick="restartLevel()">Restart Level</button>
-        <button onclick="showHelp()">Help</button>
+        <button onclick="togglePauseMenu()">Pause</button>
     </div>
+    <button id="musicBtn" class="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+    <div id="pause-menu" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="togglePauseMenu()">&times;</span>
+            <h2>Pause Menu</h2>
+            <button onclick="restartLevel()">Restart Game</button>
+            <button onclick="showHelp()">Help</button>
+            <button onclick="saveGame()">Save Game</button>
+            <button onclick="toggleMusic()">Music Player</button>
+        </div>
+    </div>
+    <audio id="backgroundMusic" loop>
+        <source src="Asset/background_music.mp3" type="audio/mp3">
+    </audio>
 
     <script>
         // Cấu hình hình ảnh
@@ -49,7 +85,7 @@
                     " #   ####",
                     " #####   "
                 ],
-                timeLimit: 120,
+                timeLimit: 40,
                 maxScore: 1000
             },
             {
@@ -63,7 +99,7 @@
                     "#o   O #",
                     "########"
                 ],
-                timeLimit: 180,
+                timeLimit: 50,
                 maxScore: 2000
             },
             {
@@ -80,7 +116,7 @@
                     " #     ##   #",
                     " ############"
                 ],
-                timeLimit: 300,
+                timeLimit: 60,
                 maxScore: 3000
             }
         ];
@@ -95,11 +131,44 @@
         let isMoving = false;
         let completedTrashCount = 0;
         let binPositions = [];
+        let isMusicPlaying = false;
+        let animationInProgress = false;
+        const ANIMATION_DURATION = 200; // 200ms for smooth animation
+
+        function toggleMusic() {
+            const music = document.getElementById('backgroundMusic');
+            const musicBtn = document.getElementById('musicBtn').querySelector('i');
+            
+            isMusicPlaying = !isMusicPlaying;
+            
+            if (isMusicPlaying) {
+                music.play().catch(console.error);
+                musicBtn.className = 'fas fa-volume-up';
+            } else {
+                music.pause();
+                musicBtn.className = 'fas fa-volume-mute';
+            }
+            
+            localStorage.setItem('musicPreference', isMusicPlaying);
+        }
+
+        // Add this to initGame()
+        function initAudio() {
+            const savedPreference = localStorage.getItem('musicPreference') === 'true';
+            if (savedPreference) {
+                toggleMusic();
+            }
+        }
 
         function initGame() {
-            preloadImages();
-            initLevel();
-
+            if (window.location.search.includes('continue=true')) {
+                loadSavedGame();
+            } else {
+                preloadImages();
+                initLevel();
+            }
+            initAudio();
+            displayPlayerName();
         }
 
         function preloadImages() {
@@ -131,6 +200,10 @@
                     }
                 }
             }
+
+            // Reset any ongoing animations or states
+            isMoving = false;
+            animationInProgress = false;
 
             if (timer) {
                 clearInterval(timer);
@@ -169,6 +242,8 @@
                 row.forEach((cell, x) => {
                     const cellDiv = document.createElement('div');
                     cellDiv.className = 'cell';
+                    cellDiv.setAttribute('data-x', x);
+                    cellDiv.setAttribute('data-y', y);
 
                     // Kiểm tra thùng rác tại vị trí hiện tại
                     const bin = getBinAtPosition(x, y);
@@ -213,6 +288,48 @@
             cellDiv.style.backgroundImage = direction === 'right' ? `url(${SPRITES.player.right})` : `url(${SPRITES.player.left})`;
 
         }
+        // Existing JavaScript code...
+
+        function togglePauseMenu() {
+            const pauseMenu = document.getElementById('pause-menu');
+            pauseMenu.style.display = pauseMenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function saveGame() {
+            const gameData = {
+                playerName: localStorage.getItem('playerName'),
+                currentLevel: currentLevel,
+                score: score,
+                timeLeft: timeLeft,
+                gameState: gameState,
+                playerPos: playerPos,
+                binPositions: binPositions
+            };
+            
+            localStorage.setItem('savedGame', JSON.stringify(gameData));
+            alert('Game saved successfully!');
+            window.location.href = 'MainMenu.html';
+        }
+
+        // Add this function to load saved game
+        function loadSavedGame() {
+            const savedData = JSON.parse(localStorage.getItem('savedGame'));
+            if (savedData) {
+                currentLevel = savedData.currentLevel;
+                score = savedData.score;
+                timeLeft = savedData.timeLeft;
+                gameState = savedData.gameState;
+                playerPos = savedData.playerPos;
+                binPositions = savedData.binPositions;
+                
+                if (timer) {
+                    clearInterval(timer);
+                }
+                timer = setInterval(updateTimer, 1000);
+                updateDisplay();
+            }
+        }
+
 
         function renderTrash(cellDiv, type) {
             cellDiv.classList.add('trash');
@@ -238,45 +355,65 @@
             }
         }
 
+        function gameOver() {
+            clearInterval(timer);
+            alert("Game Over! Trash hit the wall!");
+            score = 0;  // Reset score
+            currentLevel = 0;  // Reset to first level
+            initLevel();
+        }
+
         function movePlayer(dx, dy) {
-            if (isMoving) return;
+            if (isMoving || animationInProgress) return;
             isMoving = true;
+            animationInProgress = true;
 
             const newX = playerPos.x + dx;
             const newY = playerPos.y + dy;
 
             if (isWall(newX, newY)) {
                 isMoving = false;
+                animationInProgress = false;
                 return;
+            }
+
+            // Add moving animation class
+            const playerElement = document.querySelector('.player');
+            if (playerElement) {
+                playerElement.classList.add('moving');
             }
 
             if (isTrash(newX, newY)) {
                 const newTrashX = newX + dx;
                 const newTrashY = newY + dy;
 
-                if (isWall(newTrashX, newTrashY) || isTrash(newTrashX, newTrashY)) {
+                if (isWall(newTrashX, newTrashY)) {
+                    gameOver();
                     isMoving = false;
+                    animationInProgress = false;
                     return;
                 }
 
-                // Lấy loại rác và vị trí thùng rác
+                if (isTrash(newTrashX, newTrashY)) {
+                    isMoving = false;
+                    animationInProgress = false;
+                    return;
+                }
+
+                const trashElement = document.querySelector(`[data-x="${newX}"][data-y="${newY}"]`);
+                if (trashElement) {
+                    trashElement.classList.add('moving');
+                }
+
+                // Existing trash movement code
                 const trashType = gameState[newY][newX];
                 const bin = getBinAtPosition(newTrashX, newTrashY);
-
-                // Lưu trạng thái ô hiện tại của rác (có thể là thùng rác)
                 const currentBin = getBinAtPosition(newY, newX);
-
-                // Di chuyển rác
                 gameState[newY][newX] = currentBin ? currentBin.type : ' ';
                 gameState[newTrashY][newTrashX] = trashType;
-
-                // Tính điểm nếu rác được đẩy vào đúng thùng
-                if (bin && isCorrectBin(trashType, bin.type)) {
-                    score += 100;
-                }
             }
 
-            // Di chuyển người chơi
+            // Existing player movement code
             const currentBin = getBinAtPosition(playerPos.x, playerPos.y);
             gameState[playerPos.y][playerPos.x] = currentBin ? currentBin.type : ' ';
             playerPos.x = newX;
@@ -284,9 +421,18 @@
             gameState[playerPos.y][playerPos.x] = '@';
 
             playerDirection = dx > 0 ? 'right' : 'left';
+            
+            // Update display after movement
             updateDisplay();
-            isMoving = false;
-            checkWinCondition();
+
+            // Remove animation classes and reset flags after animation completes
+            setTimeout(() => {
+                const movingElements = document.querySelectorAll('.moving');
+                movingElements.forEach(el => el.classList.remove('moving'));
+                isMoving = false;
+                animationInProgress = false;
+                checkWinCondition();
+            }, ANIMATION_DURATION);
         }
 
         function isCorrectBin(trashType, binType) {
@@ -307,6 +453,10 @@
         }
 
         function restartLevel() {
+            // Close the pause menu
+            document.getElementById('pause-menu').style.display = 'none';
+            
+            // Reset and initialize the level
             initLevel();
         }
 
@@ -330,8 +480,14 @@
 
             if (foundTrash && allTrashInCorrectBins) {
                 alert("Chúc mừng! Bạn đã hoàn thành cấp độ này!");
+                updateScore();
                 nextLevel();
             }
+        }
+        function updateScore() {
+            const levelScore = 300;
+            const timeBonus = timeLeft * levelScore;
+            score += timeBonus;
         }
 
 
@@ -367,7 +523,18 @@
             alert("Cách chơi: Sử dụng các phím mũi tên để di chuyển nhân vật và đặt rác vào thùng đúng loại.");
         }
 
+        function displayPlayerName() {
+            const playerNameElement = document.getElementById('playerName');
+            const savedName = localStorage.getItem('playerName') || 'Guest';
+            playerNameElement.textContent = savedName;
+        }
+
         window.onload = initGame;
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('musicPreference') === 'true') {
+                toggleMusic();
+            }
+        });
     </script>
 </body>
 

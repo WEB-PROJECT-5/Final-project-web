@@ -1,0 +1,356 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e8f5e9;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image: url('Asset/background_img.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+}
+
+#game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#game-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cell {
+    transition: all 0.15s ease-out;
+}
+.player, .trash {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.moving {
+    animation: move 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes move {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.row {
+    display: flex;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+    transition: all 0.3s ease;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-20px);
+    animation: modalSlideIn 0.3s ease forwards;
+}
+
+@keyframes modalSlideIn {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.modal-content h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+.music-btn {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+                -5px -5px 15px rgba(255, 255, 255, 0.8);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.music-btn:hover {
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.15),
+                -7px -7px 20px rgba(255, 255, 255, 0.9);
+}
+
+.music-btn i {
+    font-size: 28px;
+    color: #2196F3;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content button {
+    width: 100%;
+    margin: 12px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.modal-content button:hover {
+    background: linear-gradient(135deg, #45a049, #388E3C);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    color: #666;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #fafafa;
+}
+
+.wall {
+    background-color: #546e7a;
+}
+
+.player {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    transition: transform 0.2s;
+}
+
+.player.face-right {
+    transform: scaleX(1);
+}
+
+.player.face-left {
+    transform: scaleX(-1);
+}
+
+.trash {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+}
+
+.bin-organic {
+    background-color: #4caf50;
+}
+
+.bin-plastic {
+    background-color: #2196f3;
+}
+
+.bin-paper {
+    background-color: #ffc107;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+}
+
+button:hover {
+    background-color: #388e3c;
+}
+
+.game-status {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+@keyframes walkRight {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -192px 0;
+    }
+}
+
+@keyframes walkLeft {
+    from {
+        background-position: 0 -48px;
+    }
+
+    to {
+        background-position: -192px -48px;
+    }
+}
+
+.player-walking {
+    animation: walkRight 0.8s steps(4) infinite;
+}
+
+.player-walking.face-left {
+    animation: walkLeft 0.8s steps(4) infinite;
+}
+
+.help-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+}
+
+.help-content {
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    
+}
+
+.help-section {
+    margin-bottom: 20px;
+}
+
+.help-section h3 {
+    color: #2196F3;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.trash-guide {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.trash-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 8px;
+    width: calc(50% - 10px);
+}
+
+.trash-icon {
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.controls-guide {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.control-item {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.key-symbol {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #2196F3;
+    color: white;
+    border-radius: 4px;
+    margin: 0 5px;
+    font-weight: bold;
+}

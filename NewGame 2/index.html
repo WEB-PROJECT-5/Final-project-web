@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò Chơi Phân Loại Rác</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('./Asset/background_img.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            color: #333;
+        }
+        
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 480px;
+            transform: translateY(0);
+            transition: all 0.4s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            color: #007A8C;
+            font-size: 3em;
+            margin-bottom: 40px;
+            letter-spacing: 1.5px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-container input:focus {
+            border-color: #FF5722;
+            box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.1);
+        }
+
+        .input-container label {
+            position: absolute;
+            left: 15px;
+            top: -10px;
+            background: white;
+            padding: 0 8px;
+            color: #666;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: #FF5722;
+            color: white;
+        }
+
+        .btn-primary:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #FF5722;
+            border: 2px solid #FF5722;
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary:not(:disabled):hover {
+            background-color: #E64A19;
+        }
+
+        /* Overlay styles */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .leaderboard {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .leaderboard h2 {
+            color: #007A8C;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .leaderboard-list {
+            list-style: none;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+
+        .leaderboard-item:hover {
+            background: #f8f9fa;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #FF5722;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .leaderboard-item.highlight {
+            background-color: #fff3e0;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #FF5722;
+            }
+            to {
+                box-shadow: 0 0 15px #FF5722;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>♻️ Recycle Sokoban</h1>
+
+        <div class="input-container">
+            <label for="playerName">Tên người chơi</label>
+            <input type="text" id="playerName" placeholder="Nhập tên của bạn" required>
+        </div>
+
+        <button class="btn btn-primary" id="startGame" disabled>Bắt đầu chơi</button>
+        <button class="btn btn-primary" id="countinue" disabled>Tiếp tục game</button>
+        <button class="btn btn-secondary" id="leaderboard">Bảng xếp hạng</button>
+    </div>
+
+    <div class="overlay" id="leaderboardOverlay">
+        <div class="leaderboard">
+            <button class="close-btn">&times;</button>
+            <h2>Bảng Xếp Hạng</h2>
+            <ul class="leaderboard-list">
+                <!-- Leaderboard items will be populated by JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const playerNameInput = document.getElementById('playerName');
+        const startGameBtn = document.getElementById('startGame');
+        const leaderboardBtn = document.getElementById('leaderboard');
+        const countinueBtn = document.getElementById('countinue');
+        const overlay = document.getElementById('leaderboardOverlay');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Simplified checkSavedGame function
+        function checkSavedGame() {
+            const savedGame = localStorage.getItem('savedGame');
+            const currentPlayerName = document.getElementById('playerName').value.trim();
+            const continueBtn = document.getElementById('countinue');
+            
+            if (savedGame && currentPlayerName) {
+                const gameData = JSON.parse(savedGame);
+                continueBtn.disabled = !(gameData.playerName === currentPlayerName);
+            } else {
+                continueBtn.disabled = true;
+            }
+        }
+
+        // Update the playerNameInput event listener
+        playerNameInput.addEventListener('input', function () {
+            const isPlayerNameEntered = !!this.value.trim();
+            startGameBtn.disabled = !isPlayerNameEntered;
+            checkSavedGame();
+        });
+
+        startGameBtn.addEventListener('click', function () {
+            const playerName = playerNameInput.value.trim();
+            if (playerName) {
+                localStorage.setItem('playerName', playerName);
+                window.location.href = 'newGame.html';
+            }
+        });
+
+        // Update the continue button click handler
+        countinueBtn.addEventListener('click', function () {
+            const playerName = playerNameInput.value.trim();
+            const savedGame = JSON.parse(localStorage.getItem('savedGame'));
+            if (savedGame && savedGame.playerName === playerName) {
+                localStorage.setItem('playerName', playerName);
+                window.location.href = 'newGame.html?continue=true';
+            }
+        });
+
+        // Modify the loadLeaderboard function
+        function loadLeaderboard() {
+            const leaderboardData = [];
+            const savedGames = localStorage.getItem('completedGames');
+            const lastScore = localStorage.getItem('lastScore');
+            const currentPlayer = localStorage.getItem('playerName');
+            
+            if (savedGames) {
+                const games = JSON.parse(savedGames);
+                Object.entries(games).forEach(([playerName, gameData]) => {
+                    if (gameData.completedLevels === 3) {
+                        leaderboardData.push({
+                            name: playerName,
+                            score: gameData.totalScore,
+                            isNew: playerName === currentPlayer && gameData.totalScore === Number(lastScore)
+                        });
+                    }
+                });
+
+                // Sort by score in descending order
+                leaderboardData.sort((a, b) => b.score - a.score);
+            }
+
+            // Update the leaderboard HTML
+            const leaderboardList = document.querySelector('.leaderboard-list');
+            leaderboardList.innerHTML = '';
+
+            if (leaderboardData.length === 0) {
+                leaderboardList.innerHTML = '<li class="leaderboard-item"><span>Chưa có người chơi hoàn thành game</span></li>';
+            } else {
+                leaderboardData.slice(0, 10).forEach((player, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'leaderboard-item';
+                    if (player.isNew) {
+                        li.classList.add('highlight');
+                    }
+                    const medal = index < 3 ? ['🥇', '🥈', '🥉'][index] : '';
+                    li.innerHTML = `
+                        <span>${medal} ${index + 1}. ${player.name}</span>
+                        <span>${player.score} điểm</span>
+                    `;
+                    leaderboardList.appendChild(li);
+                });
+            }
+
+            // Check URL parameters to show leaderboard
+            if (window.location.search.includes('showLeaderboard=true')) {
+                overlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                localStorage.removeItem('lastScore'); // Clear the last score
+            }
+        }
+
+        // Update the leaderboard button click handler
+        leaderboardBtn.addEventListener('click', function () {
+            loadLeaderboard(); // Load the latest data
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', function () {
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) {
+                overlay.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        function saveGameState(state) {
+            const playerName = localStorage.getItem('playerName');
+            if (playerName) {
+                const gameState = {
+                    playerName,
+                    state,
+                };
+                localStorage.setItem('gameState', JSON.stringify(gameState));
+            }
+        }
+
+        // Update these functions
+
+        // Check for saved game when page loads
+        window.onload = function() {
+            // Try to restore last used player name
+            const lastPlayerName = localStorage.getItem('playerName');
+            if (lastPlayerName) {
+                playerNameInput.value = lastPlayerName;
+                checkSavedGame();
+                startGameBtn.disabled = false;
+            }
+            
+            // Check URL parameters for leaderboard
+            if (window.location.search.includes('showLeaderboard=true')) {
+                loadLeaderboard();
+                overlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        playerNameInput.addEventListener('input', function () {
+            const playerName = this.value.trim();
+            startGameBtn.disabled = !playerName;
+            if (playerName) {
+                checkSavedGame();
+            } else {
+                countinueBtn.disabled = true;
+            }
+        });
+
+        // ...rest of the existing code...
+    </script>
+</body>
+
+</html>

@@ -3,40 +3,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Recycling Sokoban</title>
+    <title>Trò Chơi Phân Loại Rác</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .cell {
-            transition: all 0.2s ease;
-        }
-        .player, .trash {
-            transition: transform 0.2s ease;
-        }
-        .moving {
-            animation: move 0.2s ease;
-        }
-        @keyframes move {
-            from {
-                transform: scale(1);
-            }
-            to {
-                transform: scale(1.1);
-            }
-        }
-    </style>
+
 </head>
 
 <body>
     <div id="game-info">
-        <div>Player: <span id="playerName">Guest</span></div>
-        <div>Level: <span id="level">1</span></div>
-        <div>Score: <span id="score">0</span></div>
-        <div>Time: <span id="time">00:00</span></div>
+        <div>Người chơi: <span id="playerName">Khách</span></div>
+        <div>Cấp độ: <span id="level">1</span></div>
+        <div>Điểm: <span id="score">0</span></div>
+        <div>Thời gian: <span id="time">00:00</span></div>
     </div>
     <div id="game-container"></div>
     <div class="controls">
-        <button onclick="togglePauseMenu()">Pause</button>
+        <button onclick="togglePauseMenu()">Tạm dừng</button>
     </div>
     <button id="musicBtn" class="music-btn" onclick="toggleMusic()">
         <i class="fas fa-volume-mute"></i>
@@ -44,30 +26,115 @@
     <div id="pause-menu" class="modal">
         <div class="modal-content">
             <span class="close" onclick="togglePauseMenu()">&times;</span>
-            <h2>Pause Menu</h2>
-            <button onclick="restartLevel()">Restart Game</button>
-            <button onclick="showHelp()">Help</button>
-            <button onclick="saveGame()">Save Game</button>
-            <button onclick="toggleMusic()">Music Player</button>
+            <h2>Menu Tạm Dừng</h2>
+            <button onclick="restartLevel()">Chơi Lại Cấp Độ</button>
+            <button onclick="showHelp()">Hướng Dẫn</button>
+            <button onclick="saveGame()">Lưu Game</button>
+            <button onclick="playAgain()">Chơi Lại Từ Đầu</button>
+            <button onclick="backToMenu()">Về Menu Chính</button>
+        </div>
+    </div>
+    <div id="completion-overlay" class="modal">
+        <div class="modal-content">
+            <h2>🎉 Chúc mừng chiến thắng! 🎉</h2>
+            <p>Điểm của bạn: <span id="final-score">0</span></p>
+            <button onclick="playAgain()">Chơi lại</button>
+            <button onclick="backToMenu()">Về menu chính</button>
         </div>
     </div>
     <audio id="backgroundMusic" loop>
         <source src="Asset/background_music.mp3" type="audio/mp3">
     </audio>
 
+    <div id="help-modal" class="help-modal">
+        <div class="help-content">
+            <span class="close" onclick="closeHelp()">&times;</span>
+            <h2>Hướng Dẫn Chơi Game</h2>
+            
+            <div class="help-section">
+                <h3>Mục Tiêu</h3>
+                <p>Di chuyển nhân vật để đẩy rác vào đúng thùng rác tương ứng trước khi hết thời gian.</p>
+            </div>
+
+            <div class="help-section">
+                <h3>Phân Loại Rác</h3>
+                <div class="trash-guide">
+                    <div class="trash-item">
+                        <div class="trash-icon" style="background-image: url('asset/02-BananaSkin.png')"></div>
+                        <div>
+                            <strong>Rác Hữu Cơ</strong>
+                            <p>Đẩy vào thùng màu xanh lá</p>
+                        </div>
+                    </div>
+                    <div class="trash-item">
+                        <div class="trash-icon" style="background-image: url('asset/08-Plastic.png')"></div>
+                        <div>
+                            <strong>Rác Nhựa</strong>
+                            <p>Đẩy vào thùng màu xanh dương</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3>Điều Khiển</h3>
+                <div class="controls-guide">
+                    <div class="control-item">
+                        <div class="key-symbol">↑</div>
+                        <p>Di chuyển lên</p>
+                    </div>
+                    <div class="control-item">
+                        <div class="key-symbol">↓</div>
+                        <p>Di chuyển xuống</p>
+                    </div>
+                    <div class="control-item">
+                        <div class="key-symbol">←</div>
+                        <p>Di chuyển trái</p>
+                    </div>
+                    <div class="control-item">
+                        <div class="key-symbol">→</div>
+                        <p>Di chuyển phải</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h3>Lưu Ý</h3>
+                <ul>
+                    <li>Không để rác bị kẹt vào góc - game sẽ kết thúc!</li>
+                    <li>Hoàn thành càng nhanh, điểm càng cao</li>
+                    <li>Chỉ có thể lưu game sau khi đã di chuyển</li>
+                </ul>
+            </div>
+
+            <button onclick="closeHelp()">Đã Hiểu</button>
+        </div>
+    </div>
+
     <script>
         // Cấu hình hình ảnh
         const SPRITES = {
             player: {
-                right: 'asset/right.png', // Thay thế bằng URL sprite sheet nhân vật thực
-                left: 'asset/left.png',
-                front: 'asset/front.png',
-                back: 'asset/back.png'
+                right: './Asset/right.png', // Thay thế bằng URL sprite sheet nhân vật thực
+                left: './Asset/left.png',
+                front: 'Asset/front.png',
+                back: 'Asset/back.png'
             },
             trash: {
-                organic: 'asset/02-BananaSkin.png', // Thay thế bằng URL hình ảnh rác hữu cơ
-                plastic: 'asset/08-Plastic.png', // Thay thế bằng URL hình ảnh rác nhựa
-                paper: 'asset/16-Paper.png'    // Thay thế bằng URL hình ảnh rác giấy
+                organic: './Asset/02-BananaSkin.png', // Thay thế bằng URL hình ảnh rác hữu cơ
+                plastic: './Asset/08-Plastic.png', // Thay thế bằng URL hình ảnh rác nhựa
+                paper: 'Asset/16-Paper.png'    // Thay thế bằng URL hình ảnh rác giấy
+            }
+        };
+
+        const TRASH_TYPES = {
+            'O': {
+                sprite: 'organic',
+                binType: 'o'
+            },
+            'P': {
+                sprite: 'plastic',
+                binType: 'p'
             }
         };
 
@@ -99,7 +166,7 @@
                     "#o   O #",
                     "########"
                 ],
-                timeLimit: 50,
+                timeLimit: 60,
                 maxScore: 2000
             },
             {
@@ -116,7 +183,7 @@
                     " #     ##   #",
                     " ############"
                 ],
-                timeLimit: 60,
+                timeLimit: 100,
                 maxScore: 3000
             }
         ];
@@ -133,7 +200,15 @@
         let binPositions = [];
         let isMusicPlaying = false;
         let animationInProgress = false;
-        const ANIMATION_DURATION = 200; // 200ms for smooth animation
+        const ANIMATION_DURATION = 150; // Reduced from 200ms to 150ms for faster animations
+
+
+        function backToMenu() {
+            window.location.href = 'MainMenu.html';
+        }
+
+        // Add initial player position tracking
+        let initialPlayerPos = { x: 0, y: 0 };
 
         function toggleMusic() {
             const music = document.getElementById('backgroundMusic');
@@ -185,14 +260,23 @@
 
         }
 
+        // Modify the initLevel function to store initial position
         function initLevel() {
+            // Create copy of the level map without randomization
             gameState = LEVELS[currentLevel].map.map(row => row.split(''));
+            
+            // Get player position and bin positions
             playerPos = findPlayer();
+            if (currentLevel === 0) {
+                initialPlayerPos = { ...playerPos };
+            }
+            
+            // Reset game state
             timeLeft = LEVELS[currentLevel].timeLimit;
             completedTrashCount = 0;
-
-            // Lưu vị trí các thùng rác
             binPositions = [];
+
+            // Store bin positions
             for (let y = 0; y < gameState.length; y++) {
                 for (let x = 0; x < gameState[y].length; x++) {
                     if (gameState[y][x] === 'o' || gameState[y][x] === 'p') {
@@ -201,7 +285,7 @@
                 }
             }
 
-            // Reset any ongoing animations or states
+            // Reset animations
             isMoving = false;
             animationInProgress = false;
 
@@ -211,7 +295,6 @@
             timer = setInterval(updateTimer, 1000);
             updateDisplay();
         }
-
 
         function findPlayer() {
             for (let y = 0; y < gameState.length; y++) {
@@ -262,10 +345,8 @@
                             renderPlayer(cellDiv, playerDirection);
                             break;
                         case 'O':
-                            renderTrash(cellDiv, 'organic');
-                            break;
                         case 'P':
-                            renderTrash(cellDiv, 'plastic');
+                            renderTrash(cellDiv, cell);
                             break;
                         case 'o':
                         case 'p':
@@ -295,7 +376,16 @@
             pauseMenu.style.display = pauseMenu.style.display === 'block' ? 'none' : 'block';
         }
 
+        // Modify the saveGame function to check if player has moved in level 1
         function saveGame() {
+            // Check if player is in level 1 and hasn't moved
+            if (currentLevel === 0 && 
+                playerPos.x === initialPlayerPos.x && 
+                playerPos.y === initialPlayerPos.y) {
+                alert('Bạn cần di chuyển để có thể lưu game!');
+                return;
+            }
+
             const gameData = {
                 playerName: localStorage.getItem('playerName'),
                 currentLevel: currentLevel,
@@ -303,11 +393,12 @@
                 timeLeft: timeLeft,
                 gameState: gameState,
                 playerPos: playerPos,
-                binPositions: binPositions
+                binPositions: binPositions,
+                hasMoved: true
             };
             
             localStorage.setItem('savedGame', JSON.stringify(gameData));
-            alert('Game saved successfully!');
+            alert('Đã lưu game thành công!');
             window.location.href = 'MainMenu.html';
         }
 
@@ -331,9 +422,11 @@
         }
 
 
-        function renderTrash(cellDiv, type) {
+        function renderTrash(cellDiv, cellType) {
             cellDiv.classList.add('trash');
-            cellDiv.style.backgroundImage = `url(${SPRITES.trash[type]})`;
+            const trashData = TRASH_TYPES[cellType];
+            const spriteType = trashData ? SPRITES.trash[trashData.sprite] : SPRITES.trash[cellType];
+            cellDiv.style.backgroundImage = `url(${spriteType})`;
 
         }
 
@@ -357,20 +450,20 @@
 
         function gameOver() {
             clearInterval(timer);
-            alert("Game Over! Trash hit the wall!");
+            alert("Trò chơi kết thúc! Rác đã bị kẹt!");
             score = 0;  // Reset score
             currentLevel = 0;  // Reset to first level
             initLevel();
         }
 
         function movePlayer(dx, dy) {
-            if (isMoving || animationInProgress) return;
+            if (isMoving) return; // Remove animationInProgress check for faster response
             isMoving = true;
-            animationInProgress = true;
 
             const newX = playerPos.x + dx;
             const newY = playerPos.y + dy;
 
+            // First check if player would hit a wall
             if (isWall(newX, newY)) {
                 isMoving = false;
                 animationInProgress = false;
@@ -387,33 +480,39 @@
                 const newTrashX = newX + dx;
                 const newTrashY = newY + dy;
 
-                if (isWall(newTrashX, newTrashY)) {
-                    gameOver();
+                // Check if trash would hit a wall or another trash
+                if (isWall(newTrashX, newTrashY) || isTrash(newTrashX, newTrashY)) {
+                    // Check if trash is stuck
+                    const canMoveVertical = !isWall(newX, newY + 1) && !isTrash(newX, newY + 1) && 
+                                        !isWall(newX, newY - 1) && !isTrash(newX, newY - 1);
+                    const canMoveHorizontal = !isWall(newX + 1, newY) && !isTrash(newX + 1, newY) && 
+                                            !isWall(newX - 1, newY) && !isTrash(newX - 1, newY);
+                    
+                    if (isWall(newTrashX, newTrashY) && !canMoveVertical && !canMoveHorizontal) {
+                        gameOver();
+                    }
+                    
                     isMoving = false;
                     animationInProgress = false;
                     return;
                 }
 
-                if (isTrash(newTrashX, newTrashY)) {
-                    isMoving = false;
-                    animationInProgress = false;
-                    return;
-                }
-
+                // Move trash if the path is clear
                 const trashElement = document.querySelector(`[data-x="${newX}"][data-y="${newY}"]`);
                 if (trashElement) {
                     trashElement.classList.add('moving');
                 }
 
-                // Existing trash movement code
                 const trashType = gameState[newY][newX];
                 const bin = getBinAtPosition(newTrashX, newTrashY);
                 const currentBin = getBinAtPosition(newY, newX);
+                
+                // Update positions while preserving bins
                 gameState[newY][newX] = currentBin ? currentBin.type : ' ';
                 gameState[newTrashY][newTrashX] = trashType;
             }
 
-            // Existing player movement code
+            // Move player
             const currentBin = getBinAtPosition(playerPos.x, playerPos.y);
             gameState[playerPos.y][playerPos.x] = currentBin ? currentBin.type : ' ';
             playerPos.x = newX;
@@ -422,22 +521,19 @@
 
             playerDirection = dx > 0 ? 'right' : 'left';
             
-            // Update display after movement
             updateDisplay();
 
-            // Remove animation classes and reset flags after animation completes
             setTimeout(() => {
                 const movingElements = document.querySelectorAll('.moving');
                 movingElements.forEach(el => el.classList.remove('moving'));
                 isMoving = false;
-                animationInProgress = false;
                 checkWinCondition();
             }, ANIMATION_DURATION);
         }
 
         function isCorrectBin(trashType, binType) {
-            return (trashType === 'O' && binType === 'o') ||
-                (trashType === 'P' && binType === 'p');
+            const trashData = TRASH_TYPES[trashType];
+            return trashData && trashData.binType === binType;
         }
 
         function getTrashCount() {
@@ -455,6 +551,7 @@
         function restartLevel() {
             // Close the pause menu
             document.getElementById('pause-menu').style.display = 'none';
+            score = 0;
             
             // Reset and initialize the level
             initLevel();
@@ -490,15 +587,50 @@
             score += timeBonus;
         }
 
+        function showCompletionOverlay() {
+            const overlay = document.getElementById('completion-overlay');
+            document.getElementById('final-score').textContent = score;
+            overlay.style.display = 'block';
+            saveCompletedGame();
+            // Remove saved game data when completed
+            localStorage.removeItem('savedGame');
+        }
+
+        function saveCompletedGame() {
+            const playerName = localStorage.getItem('playerName');
+            const completedGames = JSON.parse(localStorage.getItem('completedGames') || '{}');
+            
+            completedGames[playerName] = {
+                completedLevels: 3,
+                totalScore: score
+            };
+            
+            localStorage.setItem('completedGames', JSON.stringify(completedGames));
+        }
+
+        function playAgain() {
+            score = 0;
+            currentLevel = 0;
+            initLevel();
+            document.getElementById('completion-overlay').style.display = 'none';
+        }
+
+        function viewLeaderboard() {
+            localStorage.setItem('lastScore', score);
+            window.location.href = 'MainMenu.html?showLeaderboard=true';
+        }
+
+        function backToMenu() {
+            window.location.href = 'MainMenu.html';
+        }
 
         function nextLevel() {
             currentLevel++;
             if (currentLevel < LEVELS.length) {
                 initLevel();
             } else {
-                alert("Bạn đã hoàn thành tất cả các cấp độ!");
-                currentLevel = 0;
-                initLevel();
+                // Game completed
+                showCompletionOverlay();
             }
         }
 
@@ -520,7 +652,12 @@
         });
 
         function showHelp() {
-            alert("Cách chơi: Sử dụng các phím mũi tên để di chuyển nhân vật và đặt rác vào thùng đúng loại.");
+            document.getElementById('help-modal').style.display = 'block';
+            document.getElementById('pause-menu').style.display = 'none';
+        }
+
+        function closeHelp() {
+            document.getElementById('help-modal').style.display = 'none';
         }
 
         function displayPlayerName() {

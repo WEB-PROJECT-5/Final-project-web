@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recycle Sokoban</title>
+    <title>Trò Chơi Phân Loại Rác</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
 
@@ -226,12 +226,26 @@
             width: 300px;
             height: 300px;
         }
+
+        .leaderboard-item.highlight {
+            background-color: #fff3e0;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px #FF5722;
+            }
+            to {
+                box-shadow: 0 0 15px #FF5722;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>♻️ Recycling Sokoban</h1>
+        <h1>♻️ Recycle Sokoban</h1>
 
         <div class="input-container">
             <label for="playerName">Tên người chơi</label>
@@ -246,20 +260,9 @@
     <div class="overlay" id="leaderboardOverlay">
         <div class="leaderboard">
             <button class="close-btn">&times;</button>
-            <h2>Bảng xếp hạng</h2>
+            <h2>Bảng Xếp Hạng</h2>
             <ul class="leaderboard-list">
-                <li class="leaderboard-item">
-                    <span>1. Player One</span>
-                    <span>1000 điểm</span>
-                </li>
-                <li class="leaderboard-item">
-                    <span>2. Player Two</span>
-                    <span>850 điểm</span>
-                </li>
-                <li class="leaderboard-item">
-                    <span>3. Player Three</span>
-                    <span>700 điểm</span>
-                </li>
+                <!-- Leaderboard items will be populated by JavaScript -->
             </ul>
         </div>
     </div>
@@ -272,14 +275,15 @@
         const overlay = document.getElementById('leaderboardOverlay');
         const closeBtn = document.querySelector('.close-btn');
 
-        // Add this function at the beginning of your script
+        // Simplified checkSavedGame function
         function checkSavedGame() {
             const savedGame = localStorage.getItem('savedGame');
+            const currentPlayerName = document.getElementById('playerName').value.trim();
             const continueBtn = document.getElementById('countinue');
-            if (savedGame) {
+            
+            if (savedGame && currentPlayerName) {
                 const gameData = JSON.parse(savedGame);
-                const currentPlayerName = document.getElementById('playerName').value.trim();
-                continueBtn.disabled = !(gameData && gameData.playerName === currentPlayerName);
+                continueBtn.disabled = !(gameData.playerName === currentPlayerName);
             } else {
                 continueBtn.disabled = true;
             }
@@ -310,7 +314,62 @@
             }
         });
 
+        // Modify the loadLeaderboard function
+        function loadLeaderboard() {
+            const leaderboardData = [];
+            const savedGames = localStorage.getItem('completedGames');
+            const lastScore = localStorage.getItem('lastScore');
+            const currentPlayer = localStorage.getItem('playerName');
+            
+            if (savedGames) {
+                const games = JSON.parse(savedGames);
+                Object.entries(games).forEach(([playerName, gameData]) => {
+                    if (gameData.completedLevels === 3) {
+                        leaderboardData.push({
+                            name: playerName,
+                            score: gameData.totalScore,
+                            isNew: playerName === currentPlayer && gameData.totalScore === Number(lastScore)
+                        });
+                    }
+                });
+
+                // Sort by score in descending order
+                leaderboardData.sort((a, b) => b.score - a.score);
+            }
+
+            // Update the leaderboard HTML
+            const leaderboardList = document.querySelector('.leaderboard-list');
+            leaderboardList.innerHTML = '';
+
+            if (leaderboardData.length === 0) {
+                leaderboardList.innerHTML = '<li class="leaderboard-item"><span>Chưa có người chơi hoàn thành game</span></li>';
+            } else {
+                leaderboardData.slice(0, 10).forEach((player, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'leaderboard-item';
+                    if (player.isNew) {
+                        li.classList.add('highlight');
+                    }
+                    const medal = index < 3 ? ['🥇', '🥈', '🥉'][index] : '';
+                    li.innerHTML = `
+                        <span>${medal} ${index + 1}. ${player.name}</span>
+                        <span>${player.score} điểm</span>
+                    `;
+                    leaderboardList.appendChild(li);
+                });
+            }
+
+            // Check URL parameters to show leaderboard
+            if (window.location.search.includes('showLeaderboard=true')) {
+                overlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                localStorage.removeItem('lastScore'); // Clear the last score
+            }
+        }
+
+        // Update the leaderboard button click handler
         leaderboardBtn.addEventListener('click', function () {
+            loadLeaderboard(); // Load the latest data
             overlay.style.display = 'block';
             document.body.style.overflow = 'hidden';
         });
@@ -337,6 +396,38 @@
                 localStorage.setItem('gameState', JSON.stringify(gameState));
             }
         }
+
+        // Update these functions
+
+        // Check for saved game when page loads
+        window.onload = function() {
+            // Try to restore last used player name
+            const lastPlayerName = localStorage.getItem('playerName');
+            if (lastPlayerName) {
+                playerNameInput.value = lastPlayerName;
+                checkSavedGame();
+                startGameBtn.disabled = false;
+            }
+            
+            // Check URL parameters for leaderboard
+            if (window.location.search.includes('showLeaderboard=true')) {
+                loadLeaderboard();
+                overlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        playerNameInput.addEventListener('input', function () {
+            const playerName = this.value.trim();
+            startGameBtn.disabled = !playerName;
+            if (playerName) {
+                checkSavedGame();
+            } else {
+                countinueBtn.disabled = true;
+            }
+        });
+
+        // ...rest of the existing code...
     </script>
 </body>
 

@@ -368,6 +368,7 @@ function saveGame() {
 }
 
 // Hàm khôi phục trạng thái trò chơi
+// Hàm khôi phục trạng thái trò chơi
 function loadGameState() {
     const savedGameState = localStorage.getItem('savedGameState'); // Lấy dữ liệu từ Local Storage
     if (savedGameState) {
@@ -386,13 +387,17 @@ function loadGameState() {
         // Cập nhật giao diện người dùng
         document.getElementById('score-display').textContent = `Điểm: ${currentScore}`;
         document.getElementById('level-display').textContent = `Cấp độ: ${currentLevel}`;
+        // Gán sự kiện cho nút "Lưu Trò Chơi"
+document.getElementById('save-btn').addEventListener('click', saveGame);
+
+// Gán sự kiện cho nút "Tiếp tục chơi"
+document.getElementById('continue-btn').addEventListener('click', loadGameState);
         renderPieces(); // Vẽ lại các mảnh ghép trên giao diện
         alert('Trò chơi đã được khôi phục!'); // Thông báo cho người dùng
     } else {
         alert('Không có trò chơi nào được lưu!'); // Thông báo nếu không có dữ liệu lưu
     }
 }
-
 // Hàm để vẽ lại các mảnh ghép trên giao diện
 function renderPieces() {
     piecesArray.forEach(piece => {
@@ -423,15 +428,120 @@ function setCurrentLevel(level) {
     document.getElementById('level-display').textContent = `Cấp độ: ${currentLevel}`; // Cập nhật giao diện
 }
 
+// Hàm để vẽ lại các mảnh ghép trên giao diện
+function renderPieces() {
+    // Logic để vẽ lại các mảnh ghép dựa trên trạng thái hiện tại
+    piecesArray.forEach(piece => {
+        drawPiece(piece); // Giả định bạn có một hàm để vẽ từng mảnh ghép
+    });
+}
+
+// Hàm để vẽ từng mảnh ghép
+function drawPiece(piece) {
+    // Thêm mã để vẽ mảnh ghép lên giao diện
+}
+
 // Thêm sự kiện cho nút "Lưu Trò Chơi"
 document.getElementById('save-btn').addEventListener('click', saveGame);
 
 // Thêm sự kiện cho nút "Tiếp tục chơi"
-document.getElementById('continue-btn').addEventListener('click', loadGameState);
-
-// Khi người chơi hoàn thành một cấp độ, lưu điểm
-document.getElementById('next').addEventListener('click', () => {
-    const score = Math.floor(Math.random() * 100); // Giả sử bạn lấy điểm ngẫu nhiên
-    saveScore(score);
-    alert(`Bạn đã hoàn thành! Điểm: ${score}`);
+document.getElementById('continue-btn').addEventListener('click', () => {
+    const savedGameState = localStorage.getItem('savedGameState');
+    if (savedGameState) {
+        const gameState = JSON.parse(savedGameState);
+        loadGameState(gameState);
+        alert('Trò chơi đã được khôi phục!');
+    } else {
+        alert('Không có trò chơi nào được lưu!');
+    }
 });
+
+// Hàm tính điểm
+function calculateScore(piecesCompleted, timeTaken) {
+    const pointsPerPiece = 10; // Điểm cho mỗi mảnh ghép
+    const timePenalty = 1; // Điểm bị trừ cho mỗi giây
+
+    // Tính điểm cơ bản
+    let score = piecesCompleted * pointsPerPiece;
+
+    // Trừ điểm theo thời gian
+    score -= timeTaken * timePenalty;
+
+    // Thưởng nếu hoàn thành dưới 30 giây
+    if (timeTaken < 30) {
+        score += 20;
+    }
+
+    // Đảm bảo điểm không âm
+    return Math.max(score, 0);
+}
+
+// Hàm tính điểm
+function calculateScore(piecesCompleted, timeTaken) {
+    const pointsPerPiece = 10; // Điểm cho mỗi mảnh ghép
+    const timePenalty = 1; // Điểm bị trừ cho mỗi giây
+
+    // Tính điểm cơ bản
+    let score = piecesCompleted * pointsPerPiece;
+
+    // Trừ điểm theo thời gian
+    score -= timeTaken * timePenalty;
+
+    // Thưởng nếu hoàn thành dưới 30 giây
+    if (timeTaken < 30) {
+        score += 20;
+    }
+
+    // Đảm bảo điểm không âm
+    return Math.max(score, 0);
+}
+
+// Hàm tính điểm
+function calculateScore(piecesCompleted, timeTaken) {
+    const pointsPerPiece = 10; // Điểm cho mỗi mảnh ghép
+    const timePenalty = 1; // Điểm bị trừ cho mỗi giây
+
+    // Tính điểm cơ bản
+    let score = piecesCompleted * pointsPerPiece;
+
+    // Trừ điểm theo thời gian
+    score -= timeTaken * timePenalty;
+
+    // Thưởng nếu hoàn thành dưới 30 giây
+    if (timeTaken < 30) {
+        score += 20;
+    }
+
+    // Đảm bảo điểm không âm
+    return Math.max(score, 0);
+}
+
+// Khi người chơi hoàn thành một cấp độ
+document.getElementById('next').addEventListener('click', () => {
+    // Lấy số mảnh ghép và thời gian từ modal
+    const piecesText = document.getElementById('pieces').textContent; // Lấy nội dung
+    const timeText = piecesText.match(/(\d+) pieces in (\d+)s/); // Regex để lấy số mảnh ghép và thời gian
+
+    if (timeText) {
+        const piecesCompleted = parseInt(timeText[1]); // Số mảnh ghép đã hoàn thành
+        const timeTaken = parseInt(timeText[2]); // Thời gian đã sử dụng
+
+        // Tính điểm
+        const score = calculateScore(piecesCompleted, timeTaken);
+        
+        // Lưu điểm
+        saveScore(score);
+        alert(`Bạn đã hoàn thành! Điểm: ${score}`);
+    } else {
+        alert('Không thể lấy thông tin số mảnh ghép và thời gian.');
+    }
+});
+
+// Khởi tạo một mảng để lưu điểm số
+let scoreHistorys = JSON.parse(localStorage.getItem('scoreHistory')) || [];
+
+// Hàm lưu điểm
+function saveScore(score) {
+    scoreHistory.push(score);
+    localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
+}

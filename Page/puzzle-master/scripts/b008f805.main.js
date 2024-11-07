@@ -368,7 +368,6 @@ function saveGame() {
 }
 
 // Hàm khôi phục trạng thái trò chơi
-// Hàm khôi phục trạng thái trò chơi
 function loadGameState() {
     const savedGameState = localStorage.getItem('savedGameState'); // Lấy dữ liệu từ Local Storage
     if (savedGameState) {
@@ -387,17 +386,13 @@ function loadGameState() {
         // Cập nhật giao diện người dùng
         document.getElementById('score-display').textContent = `Điểm: ${currentScore}`;
         document.getElementById('level-display').textContent = `Cấp độ: ${currentLevel}`;
-        // Gán sự kiện cho nút "Lưu Trò Chơi"
-document.getElementById('save-btn').addEventListener('click', saveGame);
-
-// Gán sự kiện cho nút "Tiếp tục chơi"
-document.getElementById('continue-btn').addEventListener('click', loadGameState);
         renderPieces(); // Vẽ lại các mảnh ghép trên giao diện
         alert('Trò chơi đã được khôi phục!'); // Thông báo cho người dùng
     } else {
         alert('Không có trò chơi nào được lưu!'); // Thông báo nếu không có dữ liệu lưu
     }
 }
+
 // Hàm để vẽ lại các mảnh ghép trên giao diện
 function renderPieces() {
     piecesArray.forEach(piece => {
@@ -428,33 +423,11 @@ function setCurrentLevel(level) {
     document.getElementById('level-display').textContent = `Cấp độ: ${currentLevel}`; // Cập nhật giao diện
 }
 
-// Hàm để vẽ lại các mảnh ghép trên giao diện
-function renderPieces() {
-    // Logic để vẽ lại các mảnh ghép dựa trên trạng thái hiện tại
-    piecesArray.forEach(piece => {
-        drawPiece(piece); // Giả định bạn có một hàm để vẽ từng mảnh ghép
-    });
-}
-
-// Hàm để vẽ từng mảnh ghép
-function drawPiece(piece) {
-    // Thêm mã để vẽ mảnh ghép lên giao diện
-}
-
 // Thêm sự kiện cho nút "Lưu Trò Chơi"
 document.getElementById('save-btn').addEventListener('click', saveGame);
 
 // Thêm sự kiện cho nút "Tiếp tục chơi"
-document.getElementById('continue-btn').addEventListener('click', () => {
-    const savedGameState = localStorage.getItem('savedGameState');
-    if (savedGameState) {
-        const gameState = JSON.parse(savedGameState);
-        loadGameState(gameState);
-        alert('Trò chơi đã được khôi phục!');
-    } else {
-        alert('Không có trò chơi nào được lưu!');
-    }
-});
+document.getElementById('continue-btn').addEventListener('click', loadGameState);
 
 // Khi người chơi hoàn thành một cấp độ, lưu điểm
 document.getElementById('next').addEventListener('click', () => {
@@ -462,12 +435,3 @@ document.getElementById('next').addEventListener('click', () => {
     saveScore(score);
     alert(`Bạn đã hoàn thành! Điểm: ${score}`);
 });
-
-// Khởi tạo một mảng để lưu điểm số
-let scoreHistorys = JSON.parse(localStorage.getItem('scoreHistory')) || [];
-
-// Hàm lưu điểm
-function saveScore(score) {
-    scoreHistory.push(score);
-    localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
-}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class=no-js>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <title>Trò Chơi Ghép Hình</title>
+    <meta name=description content="Học HTML5 qua việc làm. Trò chơi ghép hình HTML5 với các tính năng: Canvas, xử lý hình ảnh, RequestAnimationFrame, Fullscreen API, Application Cache API (lướt offline), Audio API, hỗ trợ cảm ứng">
+    <meta name=viewport content="width=device-width">
+    <meta name=author content="Emerson Estrella">
+    
+    <!-- Liên kết đến các tệp CSS -->
+    <link rel=stylesheet href=styles/6a9a8eb9.vendor.css>
+    <link rel=stylesheet href=styles/d2f6eea1.main.css>
+    
+    <!-- Liên kết đến Modernizr để hỗ trợ HTML5 và CSS3 -->
+    <script src=bower_components/modernizr/modernizr.js></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-image: url('images/puzzles/Toàn cảnh UEH.jpg'); /* Hình nền cho body */
+            background-size: cover; /* Kích thước hình nền phủ toàn bộ */
+            background-position: center; /* Đặt hình nền ở giữa */
+            background-repeat: no-repeat; /* Không lặp lại hình nền */
+            min-height: 100vh; /* Chiều cao tối thiểu là 100% chiều cao viewport */
+            margin: 0; /* Không có margin */
+        }
+
+        @media (max-width: 300px) {
+            body {
+                background-image: url('images/puzzles/Toàn_canh_UEH_small.jpg'); /* Hình nền nhỏ cho màn hình nhỏ */
+            }
+        }
+    </style>
+</head>
+<body id=body>
+    <div class=container>
+        <div class=header>
+            <ul class="nav nav-pills pull-right">
+                <li class=active><a id=play-top href=#><span class="glyphicon glyphicon-play"></span> Chơi</a></li>
+            </ul>
+            <h3 class=text-muted>Trò Chơi Ghép Hình</h3>
+        </div>
+        
+        <div class=jumbotron>
+            <h1>Trò Chơi Ghép Hình</h1>
+            <p class=lead>Di chuyển những mảnh ghép để hoàn thiện bức tranh!</p>
+            <p>
+                <button id=play-btn-lg type=button class="btn btn-success btn-lg"><span class="glyphicon glyphicon-play"></span> CHƠI</button>
+            </p>
+        </div>
+
+        <div class="row marketing">
+            <p>
+                <button id="continue-btn" type="button" class="btn btn-success">Tiếp tục chơi</button>
+                <button id="history-btn" type="button" class="btn btn-info">Lịch sử chơi</button>
+                <button id="save-btn" type="button" class="btn btn-warning">Lưu Trò Chơi</button>
+            </p>
+        </div>
+
+        <!-- Modal Lịch sử chơi -->
+        <div id="modal-history" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="historyModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h1 class="modal-title" id="historyModalLabel">Lịch sử điểm số</h1>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="history-list" class="list-group">
+                            <!-- Điểm số sẽ được thêm vào đây -->
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=footer>
+        <!-- Có thể thêm nội dung footer ở đây -->
+    </div>
+
+    <ul class="nav nav-pills abs">
+        <li id=home><button id=btn-home type=button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-home"></span> Trang Chủ</button></li>
+        <li id=play><button id=btn-play type=button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-play"></span> Chơi</button></li>
+        <li id=pause class=control><button id=btn-pause type=button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pause"></span> Tạm Dừng</button></li>
+        <li id=fullscreen class=control><button id=btn-fullscreen type=button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-fullscreen"></span> Toàn Màn Hình</button></li>
+        <li id=exitfullscreen class=control><button id=btn-exitfullscreen type=button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-resize-small"></span> Thoát Toàn Màn Hình</button></li>
+        <li id=bgm class=control><button id=btn-bmg-on type=button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-volume-up"></span> BGM Bật</button></li>
+        <li id=bgmoff class=control><button id=btn-bmg-off type=button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-volume-off"></span> BGM Tắt</button></li>
+    </ul>
+
+    <!-- Modal Thành Công -->
+    <div id=modal-success class="modal fade show" tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true>
+        <div class=modal-dialog>
+            <div class=modal-content>
+                <div class=modal-header>
+                    <button type=button class=close data-dismiss=modal aria-hidden=true>&times;</button>
+                    <h1 class=modal-title id=myModalLabel>Đúng rồi, bạn đã làm được!</h1>
+                </div>
+                <div class=modal-body>
+                    <p><span id=stage class="label label-success">Cấp độ 1 đã hoàn thành!</span></p>
+                    <p><span id=pieces class="label label-warning">4 mảnh trong 30 giây</span></p>
+                    <hr>
+                </div>
+                <div class=modal-footer>
+                    <button id=next type=button class="btn btn-primary">Cấp độ Tiếp Theo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id=game>
+        <canvas id=canvas style=display:none></canvas>
+        <canvas id=canvas_bg style=display:none></canvas>
+    </div>
+
+    <!-- DEBUG/IMAGES -->
+    <div id=debug style=display:none>
+        <div>
+            <audio id=audio-drip controls="">
+                <source type=audio/ogg src=audio/final/drip.ogg>
+                <source type=audio/mpeg src=audio/final/drip.mp3>Trình duyệt của bạn không hỗ trợ phần tử âm thanh.
+            </audio>
+            <audio id=audio-twang controls="">
+                <source type=audio/ogg src=audio/final/twang2.ogg>
+                <source type=audio/mpeg src=audio/final/twang2.mp3>Trình duyệt của bạn không hỗ trợ phần tử âm thanh.
+            </audio>
+            <audio id=audio-bgm controls="">
+                <source type=audio/ogg src=audio/final/Pictures-Sleep_on_soft_sheets.ogg>
+                <source type=audio/mpeg src=audio/final/Pictures-Sleep_on_soft_sheets.mp3>Trình duyệt của bạn không hỗ trợ phần tử âm thanh.
+            </audio>
+            <audio id=audio-chimes controls="">
+                <source type=audio/ogg src=audio/final/chimes.ogg>
+                <source type=audio/mpeg src=audio/final/chimes.mp3>Trình duyệt của bạn không hỗ trợ phần tử âm thanh.
+            </audio>
+        </div>
+        <div>
+            <img src=images/puzzles/5cc842b2.01.png id=img01>
+            <img src=images/puzzles/04e8c0cf.03.png id=img03>
+            <img src=images/puzzles/70bae76c.05.png id=img05>
+            <img src=images/puzzles/7fff1037.06.png id=img06>
+            <img src=images/puzzles/2896145e.07.png id=img07>
+            <img src =images/puzzles/62d9af6c.08.png id=img08>
+            <img src=images/puzzles/eb80adca.09.png id=img09>
+            <img src=images/puzzles/6f4ec30d.10.png id=img10>
+            <img src=images/puzzles/4a61eee0.11.png id=img11>
+            <img src=images/puzzles/965d5dd3.12.png id=img12>
+        </div>
+        <div>
+            mảnh:<input name=p id=p>
+            mảnh đã đặt:<input name=pp id=pp>
+            dòng:<input name=l id=l>
+            Chiều rộng mảnh:<input name=pw id=pw>
+            Chiều cao mảnh:<input name=ph id=ph>
+        </div>
+        <div>
+            đang di chuyển:<input name=moving id=moving>
+            trên:<input name=over id=over>
+            đã chọn:<input name=selected id=selected>
+        </div>
+        <div>
+            x:<input name=mx id=mx>
+            y:<input name=my id=my>
+        </div>
+        <div>
+            p1 x:<input name=px id=px>
+            p1 y:<input name=py id=py>
+        </div>
+        <div>
+            h1 x:<input name=hx id=hx>
+            h1 y:<input name=hy id=hy>
+        </div>
+        <div>
+            h2 x:<input name=hx2 id=hx2>
+            h2 y:<input name=hy2 id=hy2>
+        </div>
+    </div>
+
+    <script src=scripts/eeb11086.vendor.js></script>
+    <script>
+        (function(b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+                function() {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-31142108-1');
+        ga('send', 'pageview');
+    </script>
+    <script src=scripts/c6b52431.plugins.js></script>
+    <script src=scripts/b008f805.main.js></script>
+</body>
+</html>
